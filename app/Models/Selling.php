@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
-class Purpose extends Model
+class Selling extends Model
 {
+    public function marketplace()
+    {
+        return $this->belongsTo(Marketplace::class);
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);
