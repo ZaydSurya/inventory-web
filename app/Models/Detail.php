@@ -17,9 +17,6 @@ class Detail extends Model
         'price',
         'warranty_on',
         'warranty_off',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     public function product()

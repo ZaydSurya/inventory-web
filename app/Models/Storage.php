@@ -11,8 +11,6 @@ class Storage extends Model
         'name',
         'location',
         'photo',
-        'created_at',
-        'updated_at',
     ];
 
     public function details()

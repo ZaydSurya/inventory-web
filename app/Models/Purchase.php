@@ -12,9 +12,6 @@ class Purchase extends Model
         'marketplace_id',
         'price',
         'date',
-        'created_at',
-        'updated_at',
-        'deleted_at'
     ];
 
     public function marketplace()
