@@ -4,25 +4,20 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, House} from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, House} from 'lucide-react'; // ni import dari lucide-react kek ICON nya
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Beranda',
+        title: 'Dashboard',
         href: '/dashboard',
         icon: House,
     },
     {
-        title: 'Kategori',
+        title: 'Categories',
         href: '/categories',
         icon: LayoutGrid,
     },
-    {
-        title: 'Marketplace',
-        href: '/marketplace',
-        icon: LayoutGrid,
-    }
 ];
 
 const footerNavItems: NavItem[] = [
