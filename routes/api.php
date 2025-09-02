@@ -7,3 +7,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+
+Route::get('/categories', [CategoryController::class ,'indexApi'])->name('indexApi_categories');
+Route::post('/categories/create', [CategoryController::class ,'store'])->name('createApi_categories');
+

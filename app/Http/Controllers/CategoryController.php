@@ -20,6 +20,14 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function indexApi(){
+        $data = Category::all();
+        return response()->json([
+            'status'=> 'success',
+            'datas'=> $data,
+        ]);
+    }
+
     public function create()
     {
         return Inertia::render('Categories/Create');
@@ -28,7 +36,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         Category::create($request->all());
+
+        return Inertia::render('Categories/Index');
     }
+
     public function show(string $id)
     {
         //
