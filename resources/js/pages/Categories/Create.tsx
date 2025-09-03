@@ -4,7 +4,7 @@ import { Head, Link, usePage, useForm } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, AlertCircleIcon } from 'lucide-react';
 import InputSection from '@/components/ui/inputSection';
 import {
     Alert,
@@ -20,14 +20,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+interface PageProps {
+    flash: {
+        message?: string
+    }
+}
+
 export default function Categories() {
 
     const { data, setData, post, processing, errors } = useForm({
         name: '',
     })
+    const { flash } = usePage().props as PageProps;
 
     const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault
+        e.preventDefault();
         post(route('categories.store'))
     }
     return (
@@ -42,17 +49,29 @@ export default function Categories() {
                             </button>
                         </Link>
                         {Object.keys(errors).length > 0 && (
-                            <Alert>
-                                <AlertTitle>Terjadi Kesalahan!</AlertTitle>
+                            <Alert variant="destructive">
+                                <AlertCircleIcon />
+                                <AlertTitle>Gagal menyimpan data Kategori</AlertTitle>
                                 <AlertDescription>
-                                    <ul>
-                                        {Object.keys(errors).map(([key, message]) -> (
-                                            <li key={key}>{message as string}</li>
+                                    <ul className="list-inside list-disc text-sm">
+                                        {Object.entries(errors).map(([field, message]) => (
+                                            <li key={field}>{message}</li>
                                         ))}
                                     </ul>
                                 </AlertDescription>
                             </Alert>
                         )}
+
+                        {flash.message && (
+                            <Alert variant="default">
+                                <AlertCircleIcon />
+                                <AlertTitle>Proses membuat data Kategori telah selesai.</AlertTitle>
+                                <AlertDescription>
+                                    {flash.message}
+                                </AlertDescription>
+                            </Alert>
+                        )}
+
                     </div>
                     <div className="relative p-5 flex-1 overflow-hidden rounded-xl bg-white shadow-table">
                         <div className="m-4">
@@ -67,7 +86,7 @@ export default function Categories() {
                                         setData('name', e.target.value)
                                     }}></InputSection>
                                 </div>
-                                <Button type='submit' className='float-end'>Buat baru</Button>
+                                <Button type='submit' disabled={processing} className='float-end'>Buat baru</Button>
                             </form>
                         </div>
                     </div>

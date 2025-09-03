@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import HeaderSection from '@/components/ui/headerSection';
 import SearchSection from '@/components/ui/SearchSection';
 import { Trash, SquarePen } from 'lucide-react';
+import { router } from '@inertiajs/react';
 import {
     Table,
     TableBody,
@@ -37,9 +38,9 @@ interface CategoriesProps {
 }
 
 export default function Categories({ datas }: CategoriesProps) {
-    const handleDelete = (name: string) => {
+    const handleDelete = (id: number) => {
         if (confirm('Apakah kamu yakin ingin menghapus ${name}.')) {
-
+            router.delete(route('categories.destroy', id))
         }
     }
     return (
@@ -71,7 +72,7 @@ export default function Categories({ datas }: CategoriesProps) {
                                             <TableCell className='flex float-start justify-center items-center'>
                                                 <div>Detail</div>
                                                 <div className='mx-4 hover:text-orange-400 transition-all duration-300 ease-in-out'><SquarePen size={18}></SquarePen></div>
-                                                <div className='hover:text-red-500 transition-all duration-300 ease-in-out' onClick={() => handleDelete(data.name)}><Trash size={18}></Trash></div>
+                                                <button className='hover:text-red-500 transition-all duration-300 ease-in-out' onClick={() => handleDelete(data.id)}><Trash size={18}></Trash></button>
                                             </TableCell>
                                         </TableRow>
                                     ))}

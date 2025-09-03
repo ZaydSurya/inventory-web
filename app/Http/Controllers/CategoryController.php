@@ -36,9 +36,16 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        Category::create($request->all());
+        $validate = $request->validate([
+            'name' => 'string|min:3|max:100|unique:categories,name'
+        ]);
 
-        return redirect()->route('categories.create');
+        if($validate){
+            Category::create($validate);
+        } else {
+            return redirect()->route('categories.index');
+        }
+        return redirect()->route('categories.create')->with('message','Berhasil menyimpan data Kategori');
     }
 
     public function show(string $id)
@@ -51,9 +58,9 @@ class CategoryController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy(Category $id)
     {
-        Product::delete($id);
-
+        $id->delete();
+        return redirect()->route('categories.index')->with('message','Berhasil menghapus data');
     }
 }
