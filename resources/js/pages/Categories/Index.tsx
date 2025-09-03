@@ -16,6 +16,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
+import { config } from 'process';
 
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -36,6 +37,11 @@ interface CategoriesProps {
 }
 
 export default function Categories({ datas }: CategoriesProps) {
+    const handleDelete = (name: string) => {
+        if (confirm('Apakah kamu yakin ingin menghapus ${name}.')) {
+
+        }
+    }
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Categories" />
@@ -62,10 +68,10 @@ export default function Categories({ datas }: CategoriesProps) {
                                         <TableRow>
                                             <TableCell className="font-medium">{data.name}</TableCell>
                                             <TableCell></TableCell>
-                                            <TableCell className='flex float-start gap-2 justify-center'>
-                                                <Link><div className=" ">Detail</div></Link>
-                                                <Link><div className="bg-yellow-400 text-white rounded-full p-2"><SquarePen size={20}></SquarePen></div></Link>
-                                                <Link><div className="bg-red-400 text-white rounded-full p-2"><Trash size={20}></Trash></div></Link>
+                                            <TableCell className='flex float-start justify-center items-center'>
+                                                <div>Detail</div>
+                                                <div className='mx-4 hover:text-orange-400 transition-all duration-300 ease-in-out'><SquarePen size={18}></SquarePen></div>
+                                                <div className='hover:text-red-500 transition-all duration-300 ease-in-out' onClick={() => handleDelete(data.name)}><Trash size={18}></Trash></div>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -75,6 +81,6 @@ export default function Categories({ datas }: CategoriesProps) {
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </AppLayout >
     );
 }

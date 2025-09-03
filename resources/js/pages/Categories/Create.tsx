@@ -6,11 +6,16 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { ArrowLeft } from 'lucide-react';
 import InputSection from '@/components/ui/inputSection';
-
+import {
+    Alert,
+    AlertDescription,
+    AlertTitle
+} from '@/components/ui/alert';
+import { error } from 'console';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Categories',
+        title: 'Create Category',
         href: '/categories',
     },
 ];
@@ -36,6 +41,18 @@ export default function Categories() {
                                 <ArrowLeft className='text-blue-600 inline-flex size:'></ArrowLeft><span> Kembali</span>
                             </button>
                         </Link>
+                        {Object.keys(errors).length > 0 && (
+                            <Alert>
+                                <AlertTitle>Terjadi Kesalahan!</AlertTitle>
+                                <AlertDescription>
+                                    <ul>
+                                        {Object.keys(errors).map(([key, message]) -> (
+                                            <li key={key}>{message as string}</li>
+                                        ))}
+                                    </ul>
+                                </AlertDescription>
+                            </Alert>
+                        )}
                     </div>
                     <div className="relative p-5 flex-1 overflow-hidden rounded-xl bg-white shadow-table">
                         <div className="m-4">
@@ -47,9 +64,7 @@ export default function Categories() {
                                 <div className='gap-5 mb-4'>
                                     <Label className='font-light'>Nama Kategori</Label>
                                     <InputSection placeholder='Ketikan kategori' value={data.name} onChange={(e) => {
-                                        console.log("User ketik:", e.target.value) // 👀 log 1
                                         setData('name', e.target.value)
-                                        console.log("State data sekarang:", data) // 👀 log 2
                                     }}></InputSection>
                                 </div>
                                 <Button type='submit' className='float-end'>Buat baru</Button>

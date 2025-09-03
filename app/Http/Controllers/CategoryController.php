@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -37,7 +38,7 @@ class CategoryController extends Controller
     {
         Category::create($request->all());
 
-        return Inertia::render('Categories/Index');
+        return redirect()->route('categories.create');
     }
 
     public function show(string $id)
@@ -52,6 +53,7 @@ class CategoryController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        Product::delete($id);
+
     }
 }
